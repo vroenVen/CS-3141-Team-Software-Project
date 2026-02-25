@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  background-color: rgb(29, 32, 41);
+  font-family: "Segoe UI";
+  color: white;
+}
+
+h2, p {
+  margin: 10px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: rgb(21, 24, 32);
+  outline: 2px solid rgb(89, 97, 99);
+  margin: auto;
+}
+
+ul li {
+  float: left;
+}
+
+ul li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 10px 20px;
+  text-decoration: none;
+}
+
+ul li:hover {
+  background-color: rgb(14, 16, 21);
+}
+
+
+ul li.active:hover {
+  background-color: #531406;
+}
+
+.active{
+    background-color: #a32408;
+}
+
+</style>
+</head>
+<body>
+
+<ul>
+  <li onclick="handleClick(this)" ><a href="#new">+ New</a></li>
+  <li onclick="handleClick(this)" ><a href="#home">Files</a></li>
+  <li onclick="handleClick(this)" style="float:right"><a href="#profile">Profile</a></li>
+</ul>
+
+</body>
+</html>
+
+<script>
+
+let activeClick = null;
+
+function handleClick(element) {
+   element.classList.toggle("active");
+
+   if(activeClick && activeClick != element){
+        activeClick.classList.toggle("active");
+   }
+   if(activeClick == element){
+        activeClick = null;
+   } else{
+        activeClick = element;
+   }
+
+}
+
+</script>
