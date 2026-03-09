@@ -71,3 +71,12 @@ ul li.active:hover {
   border-radius: 0;
   padding: 5px;
 }
+
+
+#new {
+  display: none;
+}
+
+#new:target {
+  display: block;
+}

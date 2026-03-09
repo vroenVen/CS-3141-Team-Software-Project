@@ -25,6 +25,10 @@
   <?php } ?>
 </ul>
 
+<div id="new">
+  <textarea id="more-info" class="hidden-content"></textarea>
+</div>
+
 </body>
 </html>
 
