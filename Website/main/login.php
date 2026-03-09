@@ -1,10 +1,9 @@
 <?php
 
-    //$_POST["username"] = "Default Username";
-    //$_POST["password"] = "Defulat Password";
+    include_once '../init.php';
 
-    include "move.php";
-
+    $object = new Dbh;
+    $object->connect();
 
 ?>
 
@@ -21,7 +20,7 @@
         <div class="container-login">
             <div class="login">
                 <div>
-                    <form action="move.php" method="post">
+                    <form action="login.php" method="post">
                         <label>Username:</label>
                         <input class="input-login" type="text" placeholder="Enter Username" name="username" required>
                         <label>Password:</label>
