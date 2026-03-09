@@ -44,3 +44,13 @@ ul li.active:hover {
 .active{
     background-color: #a32408;
 }
+
+
+
+#new {
+  display: none;
+}
+
+#new:target {
+  display: block;
+}
