@@ -1,3 +1,9 @@
+<?php
+
+     session_start();
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +16,13 @@
 <ul>
   <li onclick="handleClick(this)" ><a href="#new">+ New</a></li>
   <li onclick="handleClick(this)" ><a href="#home">Files</a></li>
-  <li onclick="handleClick(this)" style="float:right"><a href="#profile">Profile</a></li>
+  <?php
+  if ($_SESSION["username"] != NULL) { ?>
+     <li onclick="handleClick(this)" style="float:right"><a href="#profile">Profile</a></li>
+     <li onclick="handleClick(this)" style="float:right"><a href="logout.php">Logout</a></li>
+  <?php } else { ?>
+     <li onclick="window.location.href='login.php'" style="float:right"><a href="#profile">Login</a></li>
+  <?php } ?>
 </ul>
 
 </body>
