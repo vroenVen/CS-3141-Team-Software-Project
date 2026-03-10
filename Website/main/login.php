@@ -1,6 +1,6 @@
 <?php
 
-    ini_set('display_errors', '1');
+    //ini_set('display_errors', '1');
 
 
     include_once '../../init.php';
@@ -16,8 +16,8 @@
         {
             $username = $_POST["username"];
             $password = $_POST["password"];
-            echo "The entered username: ".$username."\r\n";
-            echo "The entered password: ".$password."\r\n";
+            //echo "The entered username: ".$username."\r\n";
+            //echo "The entered password: ".$password."\r\n";
             //$hash = password_hash($password, PASSWORD_DEFAULT);
 
             $stmt = $conn->prepare("SELECT * FROM Users WHERE username=?");
