@@ -54,3 +54,30 @@ ul li.active:hover {
 #new:target {
   display: block;
 }
+
+.login {
+  background-color: rgb(21, 24, 32);
+  border: 2px solid rgb(89, 97, 99);
+  padding: 30px;
+  width: 40%;
+
+}
+
+.container-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.align {
+  height: 100%;
+  width: 100%;
+}
+
+.input-login {
+  width: 100%;
+  border-radius: 0;
+  padding: 5px;
+}
