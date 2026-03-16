@@ -27,7 +27,7 @@
 
 <div id="new">
      <ul class="save-bar">
-          <li id="save" onclick="handleClick(this)" ><a href="#">Save</a></li>
+          <li onclick="handleClick(this)" ><a href="#">Save</a></li>
      </ul>
   <textarea id="more-info" class="hidden-content"></textarea>
 </div>
@@ -52,21 +52,5 @@ function handleClick(element) {
    }
 
 }
-
-function saveContent() {
-  const content = document.getElementById("more-info").value;
-  fetch("http://141.219.196.40:81/fileHandler.php", {
-	method: "POST",
-	headers: {
-	  'Content-Type': 'application/json'
-	},
-	body: JSON.stringify({text: content})
-  })
-  .then(response => response.json())
-  .then(data => console.log('Success:', data))
-  .catch((error) => console.error('Error on saveContent:', error));
-}
-
-document.getElementById('save').addEventListener('click', saveContent);
 
 </script>
