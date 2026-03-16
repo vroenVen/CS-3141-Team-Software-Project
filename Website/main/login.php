@@ -33,6 +33,9 @@
                 if (password_verify($password, $db_password))
                 {
                     $_SESSION["username"] = $username;
+					$stmt = $conn->prepare("SELECT id FROM Users WHERE username=:username");
+					$stmt->bindParam(":username", $username);
+					$_SESSION["uid"] = $stmt->execute();
                     header('location: index.php');
                     die();
                 }
