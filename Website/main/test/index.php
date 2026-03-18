@@ -1,78 +1,25 @@
 <?php
 
-    //ini_set('display_errors', '1');
-
-
-    include_once '../../../../init.php';
-
-    session_start();
-
-    $object = new Dbh;
-    $conn = $object->connect();
-
-    if ($_POST["username"] != NULL && $_POST["password"] != NULL)
-    {
-        try
-        {
-            $username = $_POST["username"];
-            $password = $_POST["password"];
-            //echo "The entered username: ".$username."\r\n";
-            //echo "The entered password: ".$password."\r\n";
-            //$hash = password_hash($password, PASSWORD_DEFAULT);
-
-            $stmt = $conn->prepare("SELECT * FROM Users WHERE username=?");
-            $stmt->execute([$username]);
-            $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $num_rows = count($res);
-
-            if ($num_rows > 0)
-            {
-                $row = $res[0];
-                $db_password = $row["password"];
-                //echo "The db hashed password: ".$db_pass;
-                if (password_verify($password, $db_password))
-                {
-                    $_SESSION["username"] = $username;
-					$stmt = $conn->prepare("SELECT id FROM Users WHERE username=:username");
-					$stmt->bindParam(":username", $username);
-					$_SESSION["uid"] = $stmt->execute();
-                    header('location: ../files');
-                    die();
-                }
-                else
-                {
-                    echo "Incorrect password\n";
-                }
-                //$_POST["username"] = NULL;
-                //$_POST["password"] = NULL;
-            }
-            else
-            {
-                echo "Account not found!";
-            }
-        }
-        catch (Exception $e)
-        {
-            echo "Exception occurred...";
-            $_POST["username"] = NULL;
-            $_POST["password"] = NULL;
-        }
-    }
+     session_start();
 
 ?>
 
-
 <!DOCTYPE html>
-<html class="align">
-    <head>
-        <link href="../styles.css" media="all" rel="Stylesheet" type="text/css" />
-        <!-- Load Roboto Font -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    </head>
+<html>
+<head>
 
-    
+<!-- Load Roboto Font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+<link href="styles.css" media="all" rel="Stylesheet" type="text/css" />
+
+
+</head>
+
+
+<body>
 
 <div class = "header-bar">
 <ul class="flex-list">
@@ -86,12 +33,12 @@
      </ul>
      <ul class="flex-center">
 
-          <li id = "newFileButton" class="flex-button" onclick="headerButtonClicked(this, '../editor#new')">
+          <li id = "newFileButton" class="flex-button" onclick="headerButtonClicked(this, 'editor#new')">
                <svg style = "margin-right: 8px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M295 430h-5v-12h5v5h5a1 1 0 0 0 2 0v-2a5 5 0 0 0-5-5h-7a2.006 2.006 0 0 0-2 2v12a2.006 2.006 0 0 0 2 2h5a1 1 0 0 0 0-2m2-12a3.01 3.01 0 0 1 3 3h-3zm6 10h-1v-1a1 1 0 0 0-2 0v1h-1a1 1 0 0 0 0 2h1v1a1 1 0 0 0 2 0v-1h1a1 1 0 0 0 0-2" transform="translate(-288 -416)" style="fill-rule:evenodd"/></svg>
 
                <a> New </a>
           </li>
-          <li id = "fileButton" class = "flex-button" onclick="headerButtonClicked(this, '../files')" >
+          <li id = "fileButton" class = "flex-button" onclick="headerButtonClicked(this, 'files')" >
                <svg style = "margin-right: 8px" xmlns="http://www.w3.org/2000/svg" width="16" height="14" viewBox="0 0 16 14"><path d="M302 451h-2.764l-.447-.895A2 2 0 0 0 297 449h-4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-5a2 2 0 0 0-2-2m0 7h-9v-7h4l1 2h4zm-3 3h-9v-7a1 1 0 0 0-2 0v7a1.9 1.9 0 0 0 .09.59 2.02 2.02 0 0 0 1.32 1.32 1.9 1.9 0 0 0 .59.09h9a1 1 0 0 0 0-2" transform="translate(-288 -449)" style="fill-rule:evenodd"/></svg>
 
                <a> Files </a>
@@ -102,19 +49,19 @@
           <?php
           if ($_SESSION["username"] != NULL) { ?> <!-- Session found username, so show profile & logout -->
 
-          <li id = "profileButton" class = "flex-button" onclick="headerButtonClicked(this, '../profile')" >
+          <li id = "profileButton" class = "flex-button" onclick="headerButtonClicked(this, 'profile')" >
                <svg style = "margin-right: 8px" xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><path d="M333.968 361.969a10 10 0 0 0-2.526-1.355 4.98 4.98 0 0 0-2.855-8.576 4.6 4.6 0 0 0-1.178 0 4.981 4.981 0 0 0-2.856 8.576 10 10 0 0 0-2.525 1.355 2.52 2.52 0 0 0 0 4.062 10.035 10.035 0 0 0 11.94 0 2.522 2.522 0 0 0 0-4.062M324.991 357a2.99 2.99 0 0 1 2.7-2.98 2.4 2.4 0 0 1 .622 0 3 3 0 1 1-3.322 2.98m7.783 7.424a8.025 8.025 0 0 1-9.552 0 .523.523 0 0 1 0-.849 8.03 8.03 0 0 1 9.552 0 .524.524 0 0 1 0 .849" transform="translate(-321 -352)" style="fill-rule:evenodd"/></svg>
 
                <a> Profile </a>
           </li>
-          <li id = "profileLogoutButton" class = "flex-button" onclick="headerButtonClicked(this, '../logout')" >
+          <li id = "profileLogoutButton" class = "flex-button" onclick="headerButtonClicked(this, 'logout')" >
                <svg style = "margin-right: 8px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M390.978 366.01a8.1 8.1 0 0 1-4.755-1.59.514.514 0 0 1 0-.84 7.95 7.95 0 0 1 4.765-1.58 5 5 0 0 0 .993-.1c.114-.023.218-.069.328-.1a5 5 0 0 0 .6-.186c.12-.05.228-.12.343-.179a5 5 0 0 0 .5-.271c.093-.062.173-.139.262-.206a5 5 0 0 0 .431-.339l-.009-.009a5.013 5.013 0 1 0-7.424-.611c.024.033.056.059.08.091a5 5 0 0 0 .46.52l-.01.009a9.7 9.7 0 0 0-2.512 1.35 2.53 2.53 0 0 0 0 4.06 9.93 9.93 0 0 0 5.936 1.97 1.01 1.01 0 0 0 1.031-1 .99.99 0 0 0-1.019-.989m-2.993-9.01a3 3 0 1 1 3 3 3 3 0 0 1-3-3M399 364h-4a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2" transform="translate(-384 -352)" style="fill-rule:evenodd"/></svg>
 
                <a> Logout </a>
           </li>
           <?php } else { ?> <!-- Session found no username, so show login -->
 
-          <li id = "profileLoginButton" class = "flex-button" onclick="headerButtonClicked(this, '../login')" >
+          <li id = "profileLoginButton" class = "flex-button" onclick="headerButtonClicked(this, 'login')" >
                <svg style = "margin-right: 8px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M358.978 366.01a8.1 8.1 0 0 1-4.755-1.59.514.514 0 0 1 0-.84 7.95 7.95 0 0 1 4.765-1.58 5 5 0 0 0 .993-.1c.114-.023.218-.069.328-.1a5 5 0 0 0 .6-.186c.12-.05.228-.12.343-.179a5 5 0 0 0 .5-.271c.093-.062.173-.139.262-.206a5 5 0 0 0 .431-.339l-.009-.009a5.013 5.013 0 1 0-7.424-.611c.024.033.056.059.08.091a5 5 0 0 0 .46.52l-.01.009a9.7 9.7 0 0 0-2.512 1.35 2.53 2.53 0 0 0 0 4.06 9.93 9.93 0 0 0 5.936 1.97 1.01 1.01 0 0 0 1.031-1 .99.99 0 0 0-1.019-.989m-2.993-9.01a3 3 0 1 1 3 3 3 3 0 0 1-3-3M367 364h-1v-1a1 1 0 0 0-2 0v1h-1a1 1 0 1 0 0 2h1v1a1 1 0 0 0 2 0v-1h1a1 1 0 1 0 0-2" transform="translate(-352 -352)" style="fill-rule:evenodd"/></svg>
 
                <a> Login </a>
@@ -127,39 +74,15 @@
 <hr style="height: 2px; background-color: #b4b4b4; border: none;">
 </div>
 
-    <body class="align">
-        <div class="container-login">
-            <div class="login">
-                <div>
-                    <h2>
-                        Please Login
-                    </h2>
-                    <form action= "index.php" method="post">
-                        <label>Username:</label>
-                        <input class="input-login" type="text" placeholder="Enter Username" name="username" required>
-                        <label>Password:</label>
-                        <input class="input-login" type="password" placeholder="Enter Password" name="password" required>
-                        <input type="submit" value="Login">
-                    </form>
 
-                    <button onClick="window.location.href='../'">Back</button>
-                    <button onClick="window.location.href='../register'">Register</button>
-                    
-
-
-                </div>
-            </div>
-        </div>
-    </body>
-
+</body>
 </html>
 
 <script>
 
-     let activeClick = document.getElementById("profileLoginButton"); 
-     activeClick.classList.toggle("active");
+     let activeClick = null;
 
 </script>
 
-<script src="../header.js"></script>
-<script src="../file.js"></script>
+<script src="header.js"></script>
+<script src="file.js"></script>

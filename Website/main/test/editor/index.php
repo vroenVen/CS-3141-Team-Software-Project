@@ -45,6 +45,9 @@
      </ul>
      <ul class="flex-right">
 
+          <?php
+          if ($_SESSION["username"] != NULL) { ?> <!-- Session found username, so show profile & logout -->
+
           <li id = "profileButton" class = "flex-button" onclick="headerButtonClicked(this, '../profile')" >
                <svg style = "margin-right: 8px" xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><path d="M333.968 361.969a10 10 0 0 0-2.526-1.355 4.98 4.98 0 0 0-2.855-8.576 4.6 4.6 0 0 0-1.178 0 4.981 4.981 0 0 0-2.856 8.576 10 10 0 0 0-2.525 1.355 2.52 2.52 0 0 0 0 4.062 10.035 10.035 0 0 0 11.94 0 2.522 2.522 0 0 0 0-4.062M324.991 357a2.99 2.99 0 0 1 2.7-2.98 2.4 2.4 0 0 1 .622 0 3 3 0 1 1-3.322 2.98m7.783 7.424a8.025 8.025 0 0 1-9.552 0 .523.523 0 0 1 0-.849 8.03 8.03 0 0 1 9.552 0 .524.524 0 0 1 0 .849" transform="translate(-321 -352)" style="fill-rule:evenodd"/></svg>
 
@@ -55,11 +58,15 @@
 
                <a> Logout </a>
           </li>
+          <?php } else { ?> <!-- Session found no username, so show login -->
+
           <li id = "profileLoginButton" class = "flex-button" onclick="headerButtonClicked(this, '../login')" >
                <svg style = "margin-right: 8px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M358.978 366.01a8.1 8.1 0 0 1-4.755-1.59.514.514 0 0 1 0-.84 7.95 7.95 0 0 1 4.765-1.58 5 5 0 0 0 .993-.1c.114-.023.218-.069.328-.1a5 5 0 0 0 .6-.186c.12-.05.228-.12.343-.179a5 5 0 0 0 .5-.271c.093-.062.173-.139.262-.206a5 5 0 0 0 .431-.339l-.009-.009a5.013 5.013 0 1 0-7.424-.611c.024.033.056.059.08.091a5 5 0 0 0 .46.52l-.01.009a9.7 9.7 0 0 0-2.512 1.35 2.53 2.53 0 0 0 0 4.06 9.93 9.93 0 0 0 5.936 1.97 1.01 1.01 0 0 0 1.031-1 .99.99 0 0 0-1.019-.989m-2.993-9.01a3 3 0 1 1 3 3 3 3 0 0 1-3-3M367 364h-1v-1a1 1 0 0 0-2 0v1h-1a1 1 0 1 0 0 2h1v1a1 1 0 0 0 2 0v-1h1a1 1 0 1 0 0-2" transform="translate(-352 -352)" style="fill-rule:evenodd"/></svg>
 
                <a> Login </a>
           </li>
+
+          <?php } ?>
      </ul>
 
 </ul>
