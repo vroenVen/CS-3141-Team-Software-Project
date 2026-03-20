@@ -9,6 +9,10 @@
     $object = new Dbh;
     $conn = $object->connect();
 
+    $lowercase = "abcdefghijklmnopqrstuvwxyz";
+    $specialChars = "!@#$%^&*().,";
+    $numbers = "0123456789";
+
     if ($_POST["username"] != NULL && $_POST["email"] != NULL && $_POST["password"] != NULL)
     {
         try
@@ -18,8 +22,31 @@
             $password = $_POST["password"];
             $passwordVerify = $_POST["passwordVerify"];
             
+           // $passwordIsSecure = false;
+            /*
+            if ($containsLowercase && $containsLowercase && $containsNumber && strlen($password) > 8) 
+            {
+                $passwordIsSecure = true;
+                //echo "Password does not satisfy security requirements";
+            }*/
+            
             $passwordIsSecure = false;
+            $containsLowercase = false;
+            $containsSpecialChars = false;
+            $containsNumber = false;
+            
+            foreach (str_split($password) as $char)
+            {
+                if (str_contains($lowercase, $char)) $containsLowercase = true;
+                if (str_contains($specialChars, $char)) $containsSpecialChars = true;
+                if (str_contains($numbers, $char)) $containsNumber = true;
+            }
 
+            if ($containsLowercase && $containsSpecialChars && $containsNumber && strlen($password) >= 8)
+            {
+                $passwordIsSecure = true;
+            }
+            echo "Is password secure: ".$passwordIsSecure;
             if (($password == $passwordVerify) && $passwordIsSecure)
             {
                 $hash = password_hash($password, PASSWORD_DEFAULT);
@@ -117,6 +144,14 @@
                     <h2>
                         Please Register
                     </h2>
+                    <p>
+                        To satisfy security requirements, password must contain the following:
+                    </p>
+                    <ul>
+                        <li>Contain one special character: !@#$%^&*().,"</li>
+                        <li>Contain one lowercase letter</li>
+                        <li>Contain one number</li>
+                    </ul>
                     <form action="index.php" method="post">
                         <label>Username:</label>
                         <input class="input-login" type="text" placeholder="Enter Username" name="username" required>
@@ -127,15 +162,52 @@
                         <label>Enter Password Again:</label>
                         <input class="input-login" type="password" placeholder="Enter Password" name="passwordVerify" required>
                         <?php
-                    
+                        echo "The password entered is: ".$password;
+ 
                         if ($password != $passwordVerify)
                         { ?>
 
                         <p>Passwords do not match!</p>
                     
-                    <?php } ?>
+                    <?php }
+                        $containsLowercase = false;
+                        $containsSpecialChars = false;
+                        $containsNumber = false;
+                        //echo "Before foreach loop";
+                        foreach (str_split($password) as $char)
+                        {
+                            //echo "Entered foreach loop";
+                            //echo "The password entered is: ".$password;
+                            if (str_contains($lowercase, $char))
+                            {
+                                //echo "Checking ".$char;
+                                $containsLowercase = true;
+                            }
+                            if (str_contains($specialChars, $char))
+                            {
+                                $containsSpecialChars = true;
+                            }
+                            if (str_contains($numbers, $char))
+                            {
+                                $containsNumber = true;
+                            }
+                        } 
+                        echo $containsLowercase;
+                        echo $containsSpecialChars;
+                        echo $containsNumber;
+                        echo strlen($password);
+                        if ($containsLowercase == false || $containsLowercase == false || $containsNumber == false || strlen($password) < 8) 
+                        {
+                            echo "Password does not satisfy security requirements";
+                        }
+                        else
+                        {
+                            $passwordIsSecure = true;
+                        }
 
+                        ?>
 
+                        <br>
                         <input type="submit" value="Register">
                     </form>
 
