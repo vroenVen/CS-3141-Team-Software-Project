@@ -46,7 +46,7 @@
             {
                 $passwordIsSecure = true;
             }
-            echo "Is password secure: ".$passwordIsSecure;
+            //echo "Is password secure: ".$passwordIsSecure;
             if (($password == $passwordVerify) && $passwordIsSecure)
             {
                 $hash = password_hash($password, PASSWORD_DEFAULT);
@@ -62,7 +62,7 @@
         }
         catch (Exception $e)
         {
-            echo "Exception occurred...";
+            //echo "Exception occurred...";
             $_POST["username"] = NULL;
             $_POST["password"] = NULL;
         }
@@ -162,7 +162,7 @@
                         <label>Enter Password Again:</label>
                         <input class="input-login" type="password" placeholder="Enter Password" name="passwordVerify" required>
                         <?php
-                        echo "The password entered is: ".$password;
+                        //echo "The password entered is: ".$password;
  
                         if ($password != $passwordVerify)
                         { ?>
@@ -192,10 +192,10 @@
                                 $containsNumber = true;
                             }
                         } 
-                        echo $containsLowercase;
-                        echo $containsSpecialChars;
-                        echo $containsNumber;
-                        echo strlen($password);
+                        //echo $containsLowercase;
+                        //echo $containsSpecialChars;
+                        //echo $containsNumber;
+                        //echo strlen($password);
                         if ($containsLowercase == false || $containsLowercase == false || $containsNumber == false || strlen($password) < 8) 
                         {
                             echo "Password does not satisfy security requirements";
