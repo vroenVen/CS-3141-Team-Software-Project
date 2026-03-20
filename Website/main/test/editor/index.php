@@ -104,7 +104,7 @@
 
 function saveContent() {
   const content = document.getElementById("more-info").value;
-  fetch("http://141.219.196.40:82/fileHandler.php", {
+  fetch("http://141.219.196.40/fileHandler.php", {
 	method: "POST",
 	headers: {
 	  'Content-Type': 'application/json'
