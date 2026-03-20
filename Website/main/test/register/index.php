@@ -145,12 +145,13 @@
                         Please Register
                     </h2>
                     <p>
-                        To satisfy security requirements, password must contain the following:
+                        To satisfy security requirements, password must satsify the following:
                     </p>
                     <ul>
                         <li>Contain one special character: !@#$%^&*().,"</li>
                         <li>Contain one lowercase letter</li>
                         <li>Contain one number</li>
+                        <li>Be at least 8 characters long</li>
                     </ul>
                     <form action="index.php" method="post">
                         <label>Username:</label>
