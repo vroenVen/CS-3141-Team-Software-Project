@@ -16,14 +16,22 @@
             $username = $_POST["username"];
             $email = $_POST["email"];
             $password = $_POST["password"];
-            $hash = password_hash($password, PASSWORD_DEFAULT);
+            $passwordVerify = $_POST["passwordVerify"];
+            
+            $passwordIsSecure = false;
 
-            $stmt = $conn->prepare("INSERT INTO Users (username, email, password) VALUES (?, ?, ?)");
-            $stmt->execute([$username, $email, $hash]);
-            //$res = $stmt->fetchAll();
+            if (($password == $passwordVerify) && $passwordIsSecure)
+            {
+                $hash = password_hash($password, PASSWORD_DEFAULT);
 
-            header('location: ../login');
-            die();
+                $stmt = $conn->prepare("INSERT INTO Users (username, email, password) VALUES (?, ?, ?)");
+                $stmt->execute([$username, $email, $hash]);
+                //$res = $stmt->fetchAll();
+
+                header('location: ../login');
+                die();
+            }
+           
         }
         catch (Exception $e)
         {
@@ -116,6 +124,18 @@
                         <input class="input-login" type="text" placeholder="Enter Email" name="email" required>
                         <label>Password:</label>
                         <input class="input-login" type="password" placeholder="Enter Password" name="password" required>
+                        <label>Enter Password Again:</label>
+                        <input class="input-login" type="password" placeholder="Enter Password" name="passwordVerify" required>
+                        <?php
+                    
+                        if ($password != $passwordVerify)
+                        { ?>
+
+                        <p>Passwords do not match!</p>
+                    
+                    <?php } ?>
+
+
                         <input type="submit" value="Register">
                     </form>
 
