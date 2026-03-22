@@ -47,7 +47,7 @@
 -->
      </ul>
      <ul class="flex-right">
-            <li id = "profileLogoutButton" class = "flex-button" onclick="headerButtonClicked(this, '../index')" >
+            <li id = "profileLogoutButton" class = "flex-button" onclick="headerButtonClicked(this, '..')" >
                <!--<svg style = "margin-right: 8px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M390.978 366.01a8.1 8.1 0 0 1-4.755-1.59.514.514 0 0 1 0-.84 7.95 7.95 0 0 1 4.765-1.58 5 5 0 0 0 .993-.1c.114-.023.218-.069.328-.1a5 5 0 0 0 .6-.186c.12-.05.228-.12.343-.179a5 5 0 0 0 .5-.271c.093-.062.173-.139.262-.206a5 5 0 0 0 .431-.339l-.009-.009a5.013 5.013 0 1 0-7.424-.611c.024.033.056.059.08.091a5 5 0 0 0 .46.52l-.01.009a9.7 9.7 0 0 0-2.512 1.35 2.53 2.53 0 0 0 0 4.06 9.93 9.93 0 0 0 5.936 1.97 1.01 1.01 0 0 0 1.031-1 .99.99 0 0 0-1.019-.989m-2.993-9.01a3 3 0 1 1 3 3 3 3 0 0 1-3-3M399 364h-4a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2" transform="translate(-384 -352)" style="fill-rule:evenodd"/></svg>
 -->
                <a> Back </a>
@@ -62,7 +62,7 @@
                <a> Profile </a>
           </li>
 -->
-          <li id = "profileLogoutButton" class = "flex-button" onclick="headerButtonClicked(this, 'logout')" >
+          <li id = "profileLogoutButton" class = "flex-button" onclick="headerButtonClicked(this, '../logout')" >
                <svg style = "margin-right: 8px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M390.978 366.01a8.1 8.1 0 0 1-4.755-1.59.514.514 0 0 1 0-.84 7.95 7.95 0 0 1 4.765-1.58 5 5 0 0 0 .993-.1c.114-.023.218-.069.328-.1a5 5 0 0 0 .6-.186c.12-.05.228-.12.343-.179a5 5 0 0 0 .5-.271c.093-.062.173-.139.262-.206a5 5 0 0 0 .431-.339l-.009-.009a5.013 5.013 0 1 0-7.424-.611c.024.033.056.059.08.091a5 5 0 0 0 .46.52l-.01.009a9.7 9.7 0 0 0-2.512 1.35 2.53 2.53 0 0 0 0 4.06 9.93 9.93 0 0 0 5.936 1.97 1.01 1.01 0 0 0 1.031-1 .99.99 0 0 0-1.019-.989m-2.993-9.01a3 3 0 1 1 3 3 3 3 0 0 1-3-3M399 364h-4a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2" transform="translate(-384 -352)" style="fill-rule:evenodd"/></svg>
 
                <a> Logout </a>
