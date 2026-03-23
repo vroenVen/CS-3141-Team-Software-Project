@@ -22,9 +22,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['re_password'])) {
     $pdo = $dbh->connect();
     $col = $_POST['action'];
     $val = $_POST['value'];
-    $pdo->prepare("UPDATE users SET $col = ? WHERE username = ?")->execute([$val, $_SESSION['username']]);
+   
+$allowed = ['username', 'password', 'email'];
+$col = $_POST['action'];
+if (!in_array($col, $allowed)) {
+    $message = "Invalid field.";
+} else {
+    $val = ($col === 'password') ? password_hash($_POST['value'], PASSWORD_DEFAULT) : $_POST['value'];
+    $pdo->prepare("UPDATE Users SET $col = ? WHERE username = ?")->execute([$val, $_SESSION['username']]);
     $_SESSION['username'] = ($col === 'username') ? $val : $_SESSION['username'];
     $message = ucfirst($col) . " updated.";
+}
 }
 ?>
 
@@ -86,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['re_password'])) {
     <?php foreach (['username', 'password', 'email'] as $col): ?>
     <form method="POST" style="display:flex; gap:8px; margin-bottom:12px;">
         <input type="hidden" name="action" value="<?= $col ?>">
-        <input type="text" name="value" placeholder="New <?= $col ?>" style="flex:1; padding:8px;">
+        <input type="<?= $col === 'password' ? 'password' : 'text' ?>" name="value" placeholder="New <?= $col ?>" style="flex:1; padding:8px;">
         <button type="submit">Update <?= ucfirst($col) ?></button>
     </form>
     <?php endforeach; ?>
