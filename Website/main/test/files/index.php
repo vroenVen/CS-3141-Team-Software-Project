@@ -1,8 +1,8 @@
 <?php
-
-     session_start();
+    session_start();
 
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -84,78 +84,8 @@
                <th> </th>
           </tr>
      </thead>
-     <tr onclick = "fileItemClicked(this)" class = "file-table-item">
-          <td class = "file-table-item-name">
-            
-               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 16 14"><path d="M334 451h-4.764l-.447-.895A2 2 0 0 0 327 449h-5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2m-7 0 1 2h6v1h-10a1 1 0 0 0-.949.683L322 457.837V451zm7 10h-10.946l1.667-5H334z" transform="translate(-320 -449)" style="fill-rule:evenodd"/></svg>
-       
-               
-               This Folder Name
-          </td>
-          <td>3/16/2026</td>
-          <td>32MB</td>
-          <td onclick = "editClick(this)" class = "file-table-item-edit"> 
-               <svg style = "margin-top: 15px;" xmlns="http://www.w3.org/2000/svg" width="15" height="8" viewBox="0 0 10 2"><path d="M645 744a1 1 0 1 1-1-1 1 1 0 0 1 1 1m8 0a1 1 0 1 1-1-1 1 1 0 0 1 1 1m-4 0a1 1 0 1 1-1-1 1 1 0 0 1 1 1" transform="translate(-643 -743)" style="fill-rule:evenodd"/></svg>
-             
-               <div class="dropdown-content">
-                    <div class = "dropdown-option">
-                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="m44 418 2 2-10 10h-2v-2zm0-2a2 2 0 0 0-1.413.586l-9.99 10a2 2 0 0 0-.589 1.414v2a2 2 0 0 0 2 2h2a2 2 0 0 0 1.413-.586l9.99-10a2 2 0 0 0 0-2.828l-2-2A2 2 0 0 0 44 416m1 7a1 1 0 0 1-.706-.293l-3-3a1 1 0 0 1 1.413-1.414l3 3a1 1 0 0 1-.712 1.707Z" transform="translate(-32 -416)" style="fill-rule:evenodd"/></svg>
-
-                         <a> Rename </a>
-                    </div>
-
-                    <div class = "dropdown-option">
-                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M295 430h-5v-12h5v5h5a1 1 0 0 0 2 0v-2a5 5 0 0 0-5-5h-7a2.006 2.006 0 0 0-2 2v12a2.006 2.006 0 0 0 2 2h5a1 1 0 0 0 0-2m2-12a3.01 3.01 0 0 1 3 3h-3zm6 10h-1v-1a1 1 0 0 0-2 0v1h-1a1 1 0 0 0 0 2h1v1a1 1 0 0 0 2 0v-1h1a1 1 0 0 0 0-2" transform="translate(-288 -416)" style="fill-rule:evenodd"/></svg>
-                    
-                         <a> Copy </a>
-                    </div>
-
-                    <div class = "dropdown-divider">
-                    </div>
-
-                    <div class = "dropdown-option">
-                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M47 547h-4a3 3 0 0 0-6 0h-4a1 1 0 1 0 0 2h1v9a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-9h1a1 1 0 0 0 0-2m-7-1a1 1 0 0 1 1 1h-2a1 1 0 0 1 1-1m4 12h-8v-9h8z" transform="translate(-32 -544)" style="fill-rule:evenodd"/></svg>
-
-                         <a> Delete </a>
-                    </div>
-               </div>
-          </td>
-     </tr>
-
-     <tr onclick = "fileItemClicked(this)"  class = "file-table-item">
-          <td class = "file-table-item-name">
-               <svg style = "margin: 0px;" xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 14 16"><path d="M266 416h-7a2.006 2.006 0 0 0-2 2v12a2.006 2.006 0 0 0 2 2h10a2.006 2.006 0 0 0 2-2v-9a5 5 0 0 0-5-5m3 14h-10v-12h5v5h5zm-3-9v-3a3.01 3.01 0 0 1 3 3z" transform="translate(-257 -416)" style="fill-rule:evenodd"/></svg>
-               This File Name
-          </td>
-          <td>3/16/2026</td>
-          <td>32MB</td>
-          <td onclick = "editClick(this)" class = "file-table-item-edit"> 
-               <svg style = "margin-top: 15px;" xmlns="http://www.w3.org/2000/svg" width="15" height="8" viewBox="0 0 10 2"><path d="M645 744a1 1 0 1 1-1-1 1 1 0 0 1 1 1m8 0a1 1 0 1 1-1-1 1 1 0 0 1 1 1m-4 0a1 1 0 1 1-1-1 1 1 0 0 1 1 1" transform="translate(-643 -743)" style="fill-rule:evenodd"/></svg>
-          
-               <div class="dropdown-content">
-                    <div class = "dropdown-option">
-                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="m44 418 2 2-10 10h-2v-2zm0-2a2 2 0 0 0-1.413.586l-9.99 10a2 2 0 0 0-.589 1.414v2a2 2 0 0 0 2 2h2a2 2 0 0 0 1.413-.586l9.99-10a2 2 0 0 0 0-2.828l-2-2A2 2 0 0 0 44 416m1 7a1 1 0 0 1-.706-.293l-3-3a1 1 0 0 1 1.413-1.414l3 3a1 1 0 0 1-.712 1.707Z" transform="translate(-32 -416)" style="fill-rule:evenodd"/></svg>
-
-                         <a> Rename </a>
-                    </div>
-
-                    <div class = "dropdown-option">
-                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M295 430h-5v-12h5v5h5a1 1 0 0 0 2 0v-2a5 5 0 0 0-5-5h-7a2.006 2.006 0 0 0-2 2v12a2.006 2.006 0 0 0 2 2h5a1 1 0 0 0 0-2m2-12a3.01 3.01 0 0 1 3 3h-3zm6 10h-1v-1a1 1 0 0 0-2 0v1h-1a1 1 0 0 0 0 2h1v1a1 1 0 0 0 2 0v-1h1a1 1 0 0 0 0-2" transform="translate(-288 -416)" style="fill-rule:evenodd"/></svg>
-                    
-                         <a> Copy </a>
-                    </div>
-
-                    <div class = "dropdown-divider">
-                    </div>
-
-                    <div class = "dropdown-option">
-                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M47 547h-4a3 3 0 0 0-6 0h-4a1 1 0 1 0 0 2h1v9a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-9h1a1 1 0 0 0 0-2m-7-1a1 1 0 0 1 1 1h-2a1 1 0 0 1 1-1m4 12h-8v-9h8z" transform="translate(-32 -544)" style="fill-rule:evenodd"/></svg>
-
-                         <a> Delete </a>
-                    </div>
-               </div>
-          </td>
-     </tr>
+     <tbody id = "file-table-body">
+     </tbody>
 </table>
 </div>
 
@@ -173,3 +103,16 @@
 
 <script src="../header.js"></script>
 <script src="../file.js"></script>
+
+<script>
+
+var xmlhttp = new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+     if (this.readyState == 4 && this.status == 200) {
+     document.getElementById("file-table-body").innerHTML = this.responseText;
+     }
+};
+xmlhttp.open("GET", "../getFiles.php", true);
+xmlhttp.send();
+
+</script>

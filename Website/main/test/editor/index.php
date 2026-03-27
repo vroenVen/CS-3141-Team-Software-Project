@@ -76,7 +76,7 @@
 <div class = "file-table-div">
 
 <div id="new">
-     <ul class="save-bar">
+     <ul id = 'save' class="save-bar">
           <li onclick="handleClick(this)" ><a href="#">Save</a></li>
      </ul>
   <textarea id="more-info" class="hidden-content"></textarea>
