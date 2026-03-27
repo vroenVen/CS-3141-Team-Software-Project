@@ -36,7 +36,7 @@
 					$stmt = $conn->prepare("SELECT id FROM Users WHERE username=:username");
 					$stmt->bindParam(":username", $username);
 					$stmt->execute();
-					$_SESSION["uid"] = $stmt->fetch(PDO::FETCH_ASSOC)['uid'];
+					$_SESSION["uid"] = $stmt->fetch(PDO::FETCH_ASSOC)['id'];
                     header('location: index.php');
                     die();
                 }
