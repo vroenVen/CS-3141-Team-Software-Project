@@ -81,7 +81,7 @@
                <th style = "width: 80%">Name</th>
                <th>Date Modified</th>
                <th>Size</th>
-               <th> </th>
+               <th>Share</th>
           </tr>
      </thead>
      <tbody id = "file-table-body">
