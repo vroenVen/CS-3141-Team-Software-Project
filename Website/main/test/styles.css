@@ -216,13 +216,8 @@ body {
 
 }
 
-
-#new {
-  display: none;
-}
-
-#new:target {
-  display: block;
+.save-bar{
+  cursor: pointer;
 }
 
 .login {

@@ -9,22 +9,63 @@ $data = json_decode(file_get_contents('php://input'), true);
 // submitting text
 if ($data["text"] != NULL)
 
+
 // check logged in
 if ($_SESSION["uid"] != NULL)
 {
-    // create new entry in files table
-    $uuid = registerNewFile($_SESSION["uid"]);
 
-    // create directory for file
-    $result = mkdir("/tsp/userFiles/" . $_SESSION["uid"] . "/" . $uuid, 0770, true);
+    if ($data["editUuid"] != NULL){ //We're editing an existing file.
+        
+        if(verifyOwnership($_SESSION["uid"], $data["editUuid"])){
 
-    // write contents
-    $result = file_put_contents("/tsp/userFiles/" . $_SESSION["uid"] . "/" . $uuid . "/text", $data["text"]);
+            $result = file_put_contents("/tsp/userFiles/" . $_SESSION["uid"] . "/" . $data["editUuid"] . "/text", $data["text"]);
+            echo json_encode("Success");
+        }
+
+    }
+    else{
+        // create new entry in files table
+        $uuid = registerNewFile($_SESSION["uid"]);
+
+        // create directory for file
+        $result = mkdir("/tsp/userFiles/" . $_SESSION["uid"] . "/" . $uuid, 0770, true);
+
+        // write contents
+        $result = file_put_contents("/tsp/userFiles/" . $_SESSION["uid"] . "/" . $uuid . "/text", $data["text"]);
+         echo json_encode("Success");
+    }
 
 }
 
+function verifyOwnership($user, $fileUuid){
+    try
+    {
+        $object = new Dbh;
+        $conn = $object->connect();
 
+		$stmt = $conn->prepare("SELECT * FROM Files WHERE owner = :owner and uuid = :uuid");
+	
+	    $stmt->bindParam(":owner", $user);
+        $stmt->bindParam(":uuid", $fileUuid);
+	    $stmt->execute();
+	    $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+        $num_rows = count($res);
+
+        if($num_rows > 0){ //We own this file.
+            return true;
+        }else{
+            return false;
+        }
+        
+    }
+    catch (PDOException $e) 
+    {
+        $conn->rollBack();
+        print "Error!" . $e->getMessage();
+        die();
+    }
+}
 
 function registerNewFile($user)
 {

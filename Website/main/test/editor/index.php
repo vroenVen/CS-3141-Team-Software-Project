@@ -76,11 +76,12 @@
 <div class = "file-table-div">
 
 <div id="new">
-     <ul id = 'save' class="save-bar">
-          <li onclick="handleClick(this)" ><a href="#">Save</a></li>
+     <ul id="saveElement" onclick="saveContent()" class="save-bar">
+          <li onclick="handleClick(this)" ><a>Save</a></li>
      </ul>
-  <textarea id="more-info" class="hidden-content"></textarea>
+
 </div>
+<textarea id="more-info"></textarea>
 
 </div>
 
@@ -103,19 +104,87 @@
 <script>
 
 function saveContent() {
-  const content = document.getElementById("more-info").value;
-  fetch("http://141.219.196.40/fileHandler.php", {
-	method: "POST",
-	headers: {
-	  'Content-Type': 'application/json'
-	},
-	body: JSON.stringify({text: content})
-  })
-  .then(response => response.json())
-  .then(data => console.log('Success:', data))
-  .catch((error) => console.error('Error on saveContent:', error));
+     let fileUuid = <?php echo json_encode(htmlspecialchars($_GET["file"])); ?>;
+
+     const content = document.getElementById("more-info").value;
+     fetch("http://141.219.196.40/fileHandler.php", {
+          method: "POST",
+          headers: {
+          'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(
+          {
+               text: content, 
+               editUuid: fileUuid,
+          }
+          )
+     })
+     .then(response => {
+
+          if (!response.ok) {
+               throw new Error('Network response was not ok');
+               alert("An error occured while saving!");
+          }
+
+          return response.json(); // Returns a promise for the body data
+     })
+     .then(data => {
+
+
+          alert("Successfully saved!");
+          window.location.href = `../files`;
+
+     })
+     .catch(error => {
+
+          console.error('Error saving data:', error);
+          alert("An error occured while saving!");
+
+     });
+
 }
 
-document.getElementById('save').addEventListener('click', saveContent);
+
+function getFile(){
+     let $_JSGET = <?php echo json_encode($_GET); ?>;
+     
+     if($_JSGET["file"]){ //we've been sent a file, request the text.
+
+          let fileUuid = <?php echo json_encode(htmlspecialchars($_GET["file"])); ?>;
+
+          fetch("http://141.219.196.40/test/returnFileInfo.php", {
+               method: "POST",
+               headers: {
+               'Content-Type': 'application/json'
+               },
+               body: JSON.stringify({fileUuid: fileUuid})
+          })
+          .then(response => {
+          if (!response.ok) {
+               throw new Error('Network response was not ok');
+               alert("Failed to fetch data!");
+               window.location.href = `../files`;
+          }
+          return response.json(); // Returns a promise for the body data
+          })
+          .then(data => {
+          
+
+               document.getElementById("more-info").value = data;
+
+
+          })
+          .catch(error => {
+          console.error('Error fetching data:', error);
+          alert("Failed to fetch data!");
+          window.location.href = `../files`;
+          });
+
+
+     }
+
+}
+getFile();
+
 
 </script>
