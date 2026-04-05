@@ -2,6 +2,11 @@
 
      session_start();
 
+     if (!isset($_SESSION["username"])) {
+        header('location: welcome.php');
+        exit();
+    }
+
 ?>
 
 <!DOCTYPE html>

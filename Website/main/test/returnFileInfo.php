@@ -17,9 +17,19 @@
         try
         {
         
-		$stmt = $conn->prepare("SELECT * FROM Files WHERE owner = :owner and uuid = :uuid");
+		$stmt = $conn->prepare(
+            "SELECT f.uuid, f.owner FROM Files f
+             WHERE f.uuid = :uuid
+             AND (f.owner = :owner
+                  OR EXISTS (
+                      SELECT 1 FROM SharedFiles sf
+                      WHERE sf.file_id = f.id AND sf.shared_with = :owner2
+                  ))"
+        );
+
 	
 	    $stmt->bindParam(":owner", $_SESSION["uid"]);
+        $stmt->bindParam(":owner2", $_SESSION["uid"]);
         $stmt->bindParam(":uuid", $uuid);
 	    $stmt->execute();
 	    $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -27,8 +37,8 @@
         $num_rows = count($res);
 
         if($num_rows > 0){ //Found
-            
-            $result = file_get_contents("/tsp/userFiles/" . $_SESSION["uid"] . "/" . $uuid . "/text");
+            $fileOwner = $res[0]["owner"];
+            $result = file_get_contents("/tsp/userFiles/" . $fileOwner . "/" . $uuid . "/text");
             echo json_encode($result);
         }
         else{

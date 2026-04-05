@@ -19,3 +19,13 @@ create table Files (
 	on update cascade
 );
 
+
+create table SharedFiles (
+  file_id int not null,
+  shared_with int not null,
+  primary key(file_id, shared_with),
+  foreign key(file_id) references Files(id)
+    on delete cascade on update cascade,
+  foreign key(shared_with) references Users(id)
+    on delete cascade on update cascade
+);

@@ -13,11 +13,18 @@
     {
         try
         {
-        
-		$stmt = $conn->prepare("SELECT * FROM Files WHERE owner = :owner");
+
+        $stmt = $conn->prepare(
+            "SELECT f.id, f.uuid FROM Files f WHERE f.owner = :owner
+             UNION
+             SELECT f.id, f.uuid FROM Files f
+             INNER JOIN SharedFiles sf ON sf.file_id = f.id
+             WHERE sf.shared_with = :owner2"
+        );
 	
 	    $stmt->bindParam(":owner", $_SESSION["uid"]);
-	    $stmt->execute();
+	    $stmt->bindParam(":owner2", $_SESSION["uid"]);
+        $stmt->execute();
 	    $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 	    foreach($res as $file){
