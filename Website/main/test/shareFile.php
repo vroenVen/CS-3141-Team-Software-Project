@@ -1,3 +1,10 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>shareFile debug</title>
+</head>
+<body>
 <?php
 
     include_once '../../../init.php';
@@ -10,9 +17,8 @@
         exit;
     }
 
-    $data = json_decode(file_get_contents('php://input'), true);
-    $targetUsername = $data["username"] ?? "";
-    $fileUuid = $data["fileUuid"] ?? "";
+    $targetUsername = $_POST["username"] ?? "";
+    $fileUuid = $_POST["fileUuid"] ?? "";
 
     if ($targetUsername === "" || $fileUuid === "") {
         http_response_code(400);
@@ -69,3 +75,5 @@
     }
 
 ?>
+</body>
+</html>

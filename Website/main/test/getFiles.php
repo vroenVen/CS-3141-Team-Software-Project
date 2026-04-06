@@ -55,8 +55,11 @@
                 echo '<td>
     <button onclick="event.stopPropagation(); this.nextElementSibling.style.display = this.nextElementSibling.style.display === \'none\' ? \'block\' : \'none\'">Share</button>
     <div style="display:none; margin-top:6px;">
-        <input type="text" placeholder="Enter username" style="padding:4px; margin-right:4px;" />
-        <button onclick="event.stopPropagation()">Send</button>
+        <form method="POST" action="../shareFile.php" onclick="event.stopPropagation()">
+            <input type="hidden" name="fileUuid" value="' . $file["uuid"] . '" />
+            <input type="text" name="username" placeholder="Enter username" style="padding:4px; margin-right:4px;" />
+            <button type="submit">Send</button>
+        </form>
     </div>
 </td>';
             }
