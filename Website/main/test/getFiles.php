@@ -29,7 +29,12 @@
 
 	    foreach($res as $file){
 		
-                echo '<tr onclick = "fileItemClicked(this)"  class = "file-table-item">';
+                echo '<tr onclick = "fileItemClicked(this)" ondblclick = "openFileClicked(this)" class = "file-table-item"';
+
+                echo 'id = "';
+                echo $file["uuid"];  //File name here
+                echo '">';
+            
                 echo '<td class = "file-table-item-name"> <svg style = "margin: 0px;" xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 14 16"><path d="M266 416h-7a2.006 2.006 0 0 0-2 2v12a2.006 2.006 0 0 0 2 2h10a2.006 2.006 0 0 0 2-2v-9a5 5 0 0 0-5-5m3 14h-10v-12h5v5h5zm-3-9v-3a3.01 3.01 0 0 1 3 3z" transform="translate(-257 -416)" style="fill-rule:evenodd"/></svg>';
                 
                 echo $file["id"];  //File name here

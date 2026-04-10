@@ -107,7 +107,7 @@ function saveContent() {
      let fileUuid = <?php echo json_encode(htmlspecialchars($_GET["file"])); ?>;
 
      const content = document.getElementById("more-info").value;
-     fetch("http://141.219.196.40/fileHandler.php", {
+     fetch("../../fileHandler.php", {
           method: "POST",
           headers: {
           'Content-Type': 'application/json'
@@ -152,7 +152,7 @@ function getFile(){
 
           let fileUuid = <?php echo json_encode(htmlspecialchars($_GET["file"])); ?>;
 
-          fetch("http://141.219.196.40/test/returnFileInfo.php", {
+          fetch("../returnFileInfo.php", {
                method: "POST",
                headers: {
                'Content-Type': 'application/json'

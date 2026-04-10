@@ -36,6 +36,12 @@ function editClick(element){
      openDropdown = element.children[1];
 }
 
+function openFileClicked(element){
+
+     document.location.href = `../editor?file=${element.id}`;
+
+}
+
 function shareFile(btn, fileUuid) {
      const input = btn.previousElementSibling;
      const msg = btn.nextElementSibling;
