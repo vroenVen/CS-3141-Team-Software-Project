@@ -15,11 +15,18 @@
         {
 
         $stmt = $conn->prepare(
-            "SELECT f.id, f.uuid FROM Files f WHERE f.owner = :owner
-             UNION
-             SELECT f.id, f.uuid FROM Files f
-             INNER JOIN SharedFiles sf ON sf.file_id = f.id
-             WHERE sf.shared_with = :owner2"
+            "SELECT f.id, f.uuid, u.username AS owner_name 
+            FROM Files f 
+            INNER JOIN Users u ON u.id = f.owner
+            WHERE f.owner = :owner
+
+            UNION
+
+            SELECT f.id, f.uuid, u.username AS owner_name 
+            FROM Files f
+            INNER JOIN Users u ON u.id = f.owner
+            INNER JOIN SharedFiles sf ON sf.file_id = f.id
+            WHERE sf.shared_with = :owner2"
         );
 	
 	    $stmt->bindParam(":owner", $_SESSION["uid"]);
@@ -67,6 +74,7 @@
         </form>
     </div>
 </td>';
+                echo '<td>' . htmlspecialchars($file["owner_name"]) . '</td>';
             }
 
         }

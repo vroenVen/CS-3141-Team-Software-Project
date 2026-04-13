@@ -83,7 +83,7 @@
                <th>Size</th>
                <th> </th>
                <th>Share</th>
-               <th> </th>
+               <th style="width: 200px">Owned by: </th>
           </tr>
      </thead>
      <tbody id = "file-table-body">
