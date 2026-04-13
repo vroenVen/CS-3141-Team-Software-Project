@@ -37,8 +37,10 @@
         $num_rows = count($res);
 
         if($num_rows > 0){ //Found
-            $fileOwner = $res[0]["owner"];
-            $result = file_get_contents("/tsp/userFiles/" . $fileOwner . "/" . $uuid . "/text");
+			$stmt = $conn->prepare("SELECT text FROM Files WHERE uuid = :uuid");
+			$stmt->bindParam(":uuid", $uuid);
+			$stmt->execute();
+			$result = $stmt->fetch(PDO::FETCH_NUM)[0];
             echo json_encode($result);
         }
         else{
@@ -48,6 +50,8 @@
         }
         catch (Exception $e)
         {
+			echo "owner: " . $fileOwner;
+			echo "uuid: " . $uuid . "\n";
             echo "Exception occurred...";
 	        echo print_r($e);
         }

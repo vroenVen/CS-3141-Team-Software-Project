@@ -17,9 +17,23 @@ if ($_SESSION["uid"] != NULL)
     if ($data["editUuid"] != NULL){ //We're editing an existing file.
         
         if(verifyOwnership($_SESSION["uid"], $data["editUuid"])){
+			try
+			{
+				$object = new Dbh;
+				$conn = $object->connect();
 
-            $result = file_put_contents("/tsp/userFiles/" . $_SESSION["uid"] . "/" . $data["editUuid"] . "/text", $data["text"]);
-            echo json_encode("Success");
+				$stmt = $conn->prepare("UPDATE Files SET text = :text WHERE owner = :uid AND uuid = :uuid");
+				$stmt->bindParam(":uid", $_SESSION["uid"]);
+				$stmt->bindParam(":text", $data["text"]);
+				$stmt->bindParam(":uuid", $data["editUuid"]);
+				$stmt->execute();
+				echo json_encode("Success");
+			}
+			catch (PDOException $e) 
+			{
+				print "Error!" . $e->getMessage();
+				die();
+			}
         }
 
     }
@@ -27,12 +41,24 @@ if ($_SESSION["uid"] != NULL)
         // create new entry in files table
         $uuid = registerNewFile($_SESSION["uid"]);
 
-        // create directory for file
-        $result = mkdir("/tsp/userFiles/" . $_SESSION["uid"] . "/" . $uuid, 0770, true);
-
         // write contents
-        $result = file_put_contents("/tsp/userFiles/" . $_SESSION["uid"] . "/" . $uuid . "/text", $data["text"]);
-         echo json_encode("Success");
+		try
+		{
+			$object = new Dbh;
+			$conn = $object->connect();
+
+			$stmt = $conn->prepare("UPDATE Files SET text = :text WHERE owner = :uid AND uuid = :uuid");
+			$stmt->bindParam(":uid", $_SESSION["uid"]);
+			$stmt->bindParam(":text", $data["text"]);
+			$stmt->bindParam(":uuid", $uuid);
+			$stmt->execute();
+			echo json_encode("Success");
+		}
+		catch (PDOException $e) 
+		{
+			print "Error!" . $e->getMessage();
+			die();
+		}
     }
 
 }
