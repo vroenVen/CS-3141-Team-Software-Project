@@ -14,6 +14,8 @@ create table Files (
   id int auto_increment,
   uuid uuid not null,
   owner int not null,
+  filename varchar(50),
+  lastaccess timestamp,
   primary key(id),
   foreign key(owner) references Users(id)
 	on update cascade
