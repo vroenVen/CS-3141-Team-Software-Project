@@ -109,7 +109,13 @@
           if ($_SESSION["username"] != NULL) { ?> <!-- Session found username, so show profile & logout -->
 
           <li id = "profileButton" class = "flex-button" onclick="headerButtonClicked(this, '../profile')" >
-               <svg style = "margin-right: 8px" xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><path d="M333.968 361.969a10 10 0 0 0-2.526-1.355 4.98 4.98 0 0 0-2.855-8.576 4.6 4.6 0 0 0-1.178 0 4.981 4.981 0 0 0-2.856 8.576 10 10 0 0 0-2.525 1.355 2.52 2.52 0 0 0 0 4.062 10.035 10.035 0 0 0 11.94 0 2.522 2.522 0 0 0 0-4.062M324.991 357a2.99 2.99 0 0 1 2.7-2.98 2.4 2.4 0 0 1 .622 0 3 3 0 1 1-3.322 2.98m7.783 7.424a8.025 8.025 0 0 1-9.552 0 .523.523 0 0 1 0-.849 8.03 8.03 0 0 1 9.552 0 .524.524 0 0 1 0 .849" transform="translate(-321 -352)" style="fill-rule:evenodd"/></svg>
+               <!--<svg style = "margin-right: 8px" xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><path d="M333.968 361.969a10 10 0 0 0-2.526-1.355 4.98 4.98 0 0 0-2.855-8.576 4.6 4.6 0 0 0-1.178 0 4.981 4.981 0 0 0-2.856 8.576 10 10 0 0 0-2.525 1.355 2.52 2.52 0 0 0 0 4.062 10.035 10.035 0 0 0 11.94 0 2.522 2.522 0 0 0 0-4.062M324.991 357a2.99 2.99 0 0 1 2.7-2.98 2.4 2.4 0 0 1 .622 0 3 3 0 1 1-3.322 2.98m7.783 7.424a8.025 8.025 0 0 1-9.552 0 .523.523 0 0 1 0-.849 8.03 8.03 0 0 1 9.552 0 .524.524 0 0 1 0 .849" transform="translate(-321 -352)" style="fill-rule:evenodd"/></svg>-->
+               <div style="padding: 4px;">
+               <div style="color: white; background-color: red; width: 20px; height: auto; border-radius: 100%; text-align: center; padding: 2px;">
+                    C
+               </div>
+               </div>
+
 
                <a> Profile </a>
           </li>

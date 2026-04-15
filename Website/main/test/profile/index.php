@@ -99,6 +99,37 @@ if (!in_array($col, $allowed)) {
     </form>
     <?php endforeach; ?>
 
+    <form action="" method="post">
+    <label for="profile-background">Choose a background color:</label>
+    <select name="profile-background" id="profile-background">
+        <option value="red">Red</option>
+        <option value="blue">Blue</option>
+        <option value="green">Green</option>
+        <option value="yellow">Yellow</option>
+        <option value="black">Black</option>
+        <option value="white">White</option>
+    </select>
+
+    <br/>
+    <br/>
+    
+    <label for="profile-text">Choose a text color:</label>
+    <select name="profile-text" id="profile-text">
+        <option value="red">Red</option>
+        <option value="blue">Blue</option>
+        <option value="green">Green</option>
+        <option value="yellow">Yellow</option>
+        <option value="black">Black</option>
+        <option value="white">White</option>
+    </select>
+
+    <br/>
+    <br/>
+
+    <button type="submit" name="sub">Apply Profile Changes</button>
+
+    </form>
+
 </div>
 
 <?php endif; ?>
