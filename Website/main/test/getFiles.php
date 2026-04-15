@@ -64,17 +64,25 @@
                 echo '<div class = "dropdown-divider"> </div> <div class = "dropdown-option"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M47 547h-4a3 3 0 0 0-6 0h-4a1 1 0 1 0 0 2h1v9a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-9h1a1 1 0 0 0 0-2m-7-1a1 1 0 0 1 1 1h-2a1 1 0 0 1 1-1m4 12h-8v-9h8z" transform="translate(-32 -544)" style="fill-rule:evenodd"/></svg> <a> Delete </a> </div> </div>';
                 echo '</td>';
 
+                
                 echo '<td>
-    <button onclick="event.stopPropagation(); this.nextElementSibling.style.display = this.nextElementSibling.style.display === \'none\' ? \'block\' : \'none\'">Share</button>
-    <div style="display:none; margin-top:6px;">
-        <form method="POST" action="../shareFile.php" onclick="event.stopPropagation()">
-            <input type="hidden" name="fileUuid" value="' . $file["uuid"] . '" />
-            <input type="text" name="username" placeholder="Enter username" style="padding:4px; margin-right:4px;" />
-            <button type="submit">Send</button>
-        </form>
-    </div>
-</td>';
-                echo '<td>' . htmlspecialchars($file["owner_name"]) . '</td>';
+                <button onclick="event.stopPropagation(); this.nextElementSibling.style.display = this.nextElementSibling.style.display === \'none\' ? \'block\' : \'none\'">Share</button>
+                <div style="display:none; margin-top:6px;">
+                    <form method="POST" action="../shareFile.php" onclick="event.stopPropagation()">
+                        <input type="hidden" name="fileUuid" value="' . $file["uuid"] . '" />
+                        <input type="text" name="username" placeholder="Enter username" style="padding:4px; margin-right:4px;" />
+                        <button type="submit">Send</button>
+                    </form>
+                </div>
+                </td>';
+                if ($file["owner_name"] != $_SESSION["username"])
+                {
+                    echo '<td>' . htmlspecialchars($file["owner_name"]) . '</td>';
+                }
+                else if ($file["owner_name"] == $_SESSION["username"])
+                {
+                    echo '<td>' . "You" . '</td>';
+                }
             }
 
         }
