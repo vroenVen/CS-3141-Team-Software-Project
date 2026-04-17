@@ -1,8 +1,34 @@
 <?php
-    session_start();
+
+     session_start();
+    include_once '../../../../init.php';
+
+     if($_POST["editFileUuid"] != NULL && $_POST["newFilename"] != NULL && $_SESSION["uid"] != NULL){
+          //editing this file.
+
+          try{
+
+               $object = new Dbh;
+               $conn = $object->connect();
+
+               $stmt = $conn->prepare("UPDATE Files SET filename = :newName WHERE uuid = :editUuid AND owner = :ownerId");
+
+               $stmt->bindParam(":newName", $_POST["newFilename"]);
+               $stmt->bindParam(":editUuid", $_POST["editFileUuid"]);
+               $stmt->bindParam(":ownerId", $_SESSION["uid"]);
+
+               $stmt->execute();
+
+          }
+          catch (Exception $e)
+          {
+               echo "Exception occurred...";
+	          echo print_r($e);
+          }
+
+     }
 
 ?>
-
 
 <!DOCTYPE html>
 <html>
@@ -91,7 +117,18 @@
 </table>
 </div>
 
+<div class = "rename-file hidden" id = "renameFileBox" >
 
+     <form action = "index.php" method = "post">
+
+          <a id = "renameFileText" class = "rename-file-element"> Renaming file. </a>
+          <input class= "rename-file-element" type="text" placeholder="Enter new file name" name="newFilename" maxlength="50">
+          <input id = "editFileUuidHidden" type = "hidden" name = "editFileUuid">
+          <input class = "rename-file-element" type="submit" value="Edit">
+
+     </form>
+
+</div>
 
 </body>
 </html>

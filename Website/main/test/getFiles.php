@@ -15,14 +15,14 @@
         {
 
         $stmt = $conn->prepare(
-            "SELECT f.id, f.uuid, u.username AS owner_name 
+            "SELECT f.id, f.uuid, f.filename, u.username AS owner_name 
             FROM Files f 
             INNER JOIN Users u ON u.id = f.owner
             WHERE f.owner = :owner
 
             UNION
 
-            SELECT f.id, f.uuid, u.username AS owner_name 
+            SELECT f.id, f.uuid, f.filename, u.username AS owner_name 
             FROM Files f
             INNER JOIN Users u ON u.id = f.owner
             INNER JOIN SharedFiles sf ON sf.file_id = f.id
@@ -36,15 +36,21 @@
 
 	    foreach($res as $file){
 		
+                 $fileName = "Unnamed file";    //if nothing, have a default name.
+
+                if($file["filename"] != NULL){
+                    $fileName = $file["filename"];
+                }
+		
                 echo '<tr onclick = "fileItemClicked(this)" ondblclick = "openFileClicked(this)" class = "file-table-item"';
 
                 echo 'id = "';
-                echo $file["uuid"];  //File name here
+                echo $file["uuid"];  //internal id
                 echo '">';
             
                 echo '<td class = "file-table-item-name"> <svg style = "margin: 0px;" xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 14 16"><path d="M266 416h-7a2.006 2.006 0 0 0-2 2v12a2.006 2.006 0 0 0 2 2h10a2.006 2.006 0 0 0 2-2v-9a5 5 0 0 0-5-5m3 14h-10v-12h5v5h5zm-3-9v-3a3.01 3.01 0 0 1 3 3z" transform="translate(-257 -416)" style="fill-rule:evenodd"/></svg>';
                 
-                echo $file["id"];  //File name here
+                echo $fileName; //file name
                 echo '</td>';
 
                 echo '<td>';

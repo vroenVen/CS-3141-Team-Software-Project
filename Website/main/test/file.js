@@ -1,5 +1,7 @@
 
 let activeFile = null;
+let activeUuid = null;
+let renameOpen = false;
 
 let openDropdown = null;
 let clickListener = null;
@@ -13,13 +15,28 @@ function fileItemClicked(element){
      if(activeFile == null){
           element.classList.toggle("active");
           activeFile = element;
+
+          activeUuid = element.id;
+
      } else{
 
           activeFile.classList.toggle("active"); //toggle old
           element.classList.toggle("active");  //toggle new
 
           activeFile = element;
+          activeUuid = element.id;
      }
+
+}
+
+function renameClicked(element){
+
+     if(activeUuid == null){ // No active file, cannot rename.
+          return;
+     }
+
+     document.getElementById("renameFileBox").classList.toggle("hidden");
+     document.getElementById("editFileUuidHidden").value = activeUuid;
 
 }
 

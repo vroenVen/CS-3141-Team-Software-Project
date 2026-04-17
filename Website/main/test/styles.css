@@ -246,3 +246,33 @@ body {
   border-radius: 0;
   padding: 5px;
 }
+
+
+.rename-file{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+  position: fixed;   /* Stays in place during scroll */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Offsets the element by its own half-width/height */
+  z-index: 9999;     /* Ensures it is on top of other elements */
+
+  background-color: #ededed;
+  border: 2px solid #b4b4b4;
+  padding: 30px;
+  width: 40%;
+
+}
+
+.rename-file-element{
+
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.hidden{
+  display: none;
+}
