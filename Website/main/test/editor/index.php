@@ -76,7 +76,7 @@
 <div class = "file-table-div">
 
 <div id="new">
-     <ul id="saveElement" onclick="saveContent()" class="save-bar">
+     <ul id="saveElement" onclick="saveClicked(this)" class="save-bar">
           <li onclick="handleClick(this)" ><a>Save</a></li>
      </ul>
 
@@ -85,7 +85,21 @@
 
 </div>
 
+<div class = "modify-file rename-file hidden" id = "renameFileBox" >
 
+     <button onclick="closeModify(this)" class = "modify-file-close">
+          <a> Cancel </a>
+     </button>
+
+     <form onsubmit="saveContent()">
+
+          <a id = "renameFileText" class = "modify-file-element"> Save file. </a>
+          <input class= "modify-file-element" id = "newFileName" type="text" placeholder="Enter a file name" name="newFilename" maxlength="50">
+          <input class = "modify-file-element" type="submit" value="Save">
+
+     </form>
+
+</div>
 
 </body>
 </html>
@@ -103,8 +117,25 @@
 
 <script>
 
+
+function saveClicked(element) {
+
+     let $_JSGET = <?php echo json_encode($_GET); ?>;
+     
+     if($_JSGET["file"]){  //editing file
+
+          saveContent();
+     }
+     else{
+
+          document.getElementById("renameFileBox").classList.toggle("hidden");
+     }
+
+}
+
 function saveContent() {
      let fileUuid = <?php echo json_encode(htmlspecialchars($_GET["file"])); ?>;
+     let newName = document.getElementById("newFileName").value;
 
      const content = document.getElementById("more-info").value;
      fetch("../../fileHandler.php", {
@@ -116,6 +147,7 @@ function saveContent() {
           {
                text: content, 
                editUuid: fileUuid,
+               saveName: newName,
           }
           )
      })

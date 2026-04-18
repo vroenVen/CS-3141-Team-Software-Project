@@ -22,7 +22,7 @@ if ($_SESSION["uid"] != NULL)
 				$object = new Dbh;
 				$conn = $object->connect();
 
-				$stmt = $conn->prepare("UPDATE Files SET text = :text WHERE owner = :uid AND uuid = :uuid");
+				$stmt = $conn->prepare("UPDATE Files SET text = :text, lastaccess = NOW() WHERE owner = :uid AND uuid = :uuid");
 				$stmt->bindParam(":uid", $_SESSION["uid"]);
 				$stmt->bindParam(":text", $data["text"]);
 				$stmt->bindParam(":uuid", $data["editUuid"]);
@@ -47,10 +47,13 @@ if ($_SESSION["uid"] != NULL)
 			$object = new Dbh;
 			$conn = $object->connect();
 
-			$stmt = $conn->prepare("UPDATE Files SET text = :text WHERE owner = :uid AND uuid = :uuid");
+			$name = $data["saveName"];
+
+			$stmt = $conn->prepare("UPDATE Files SET filename = :newName, text = :text, lastaccess = NOW() WHERE owner = :uid AND uuid = :uuid");
 			$stmt->bindParam(":uid", $_SESSION["uid"]);
 			$stmt->bindParam(":text", $data["text"]);
 			$stmt->bindParam(":uuid", $uuid);
+			$stmt->bindParam(":newName", $name);
 			$stmt->execute();
 			echo json_encode("Success");
 		}
@@ -100,8 +103,11 @@ function registerNewFile($user)
         $object = new Dbh;
         $conn = $object->connect();
 	$conn->beginTransaction();
-	$statement = $conn->prepare("INSERT into Files (owner, uuid) "
-	  . "values (:owner, UUID())");
+
+	$sqlTimestamp = date('Y-m-d H:i:s');
+
+	$statement = $conn->prepare("INSERT into Files (owner, uuid, lastaccess) "
+	  . "values (:owner, UUID(), NOW())");
 	$statement->bindParam(":owner", $user);
 	$statement->execute();
 	$id = $conn->query("SELECT LAST_INSERT_ID()")->fetch(PDO::FETCH_NUM)[0];

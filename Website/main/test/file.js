@@ -5,6 +5,7 @@ let renameOpen = false;
 
 let openDropdown = null;
 let clickListener = null;
+let newFile = false;
 
 function fileItemClicked(element){
 
@@ -35,9 +36,29 @@ function renameClicked(element){
           return;
      }
 
+     document.getElementById("deleteFileBox").classList.add("hidden");  // If this is open close it
+
      document.getElementById("renameFileBox").classList.toggle("hidden");
      document.getElementById("editFileUuidHidden").value = activeUuid;
 
+}
+
+function deleteClicked(element){
+
+     if(activeUuid == null){ // No active file, cannot rename.
+          return;
+     }
+
+     document.getElementById("renameFileBox").classList.add("hidden");  // If this is open close it
+
+     document.getElementById("deleteFileBox").classList.toggle("hidden");
+     document.getElementById("deleteFileUuidHidden").value = activeUuid;
+
+}
+
+function closeModify(element){
+     document.getElementById("renameFileBox").classList.add("hidden"); 
+     document.getElementById("deleteFileBox").classList.add("hidden");  
 }
 
 function editClick(element){

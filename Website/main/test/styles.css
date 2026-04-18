@@ -247,8 +247,7 @@ body {
   padding: 5px;
 }
 
-
-.rename-file{
+.modify-file{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -265,12 +264,21 @@ body {
   padding: 30px;
   width: 40%;
 
+  anchor-name: --my-anchor;
+
+
 }
 
-.rename-file-element{
+.modify-file-element{
 
   padding-left: 15px;
   padding-right: 15px;
+}
+
+.modify-file-close{
+  position: absolute;
+  top: 0;
+  right: 0
 }
 
 .hidden{

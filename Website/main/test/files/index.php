@@ -1,7 +1,7 @@
 <?php
 
      session_start();
-    include_once '../../../../init.php';
+     include_once '../../../../init.php';
 
      if($_POST["editFileUuid"] != NULL && $_POST["newFilename"] != NULL && $_SESSION["uid"] != NULL){
           //editing this file.
@@ -19,11 +19,44 @@
 
                $stmt->execute();
 
+               header("Location: " . $_SERVER['PHP_SELF'] . "?s=true"); //Prevent resubmission
+
+          }
+          catch (Exception $e)
+          {
+               echo "Exception occurred...";
+               echo print_r($e);
+
+               header("Location: " . $_SERVER['PHP_SELF'] . "?s=false"); //Prevent resubmission
+          }
+
+     }
+
+     if($_POST["deleteFileUuid"] != NULL && $_SESSION["uid"] != NULL){
+          //editing this file.
+
+          try{
+
+               $object = new Dbh;
+               $conn = $object->connect();
+
+               $stmt = $conn->prepare("DELETE FROM Files WHERE uuid = :delUuid AND owner = :ownerId");
+
+               $stmt->bindParam(":delUuid", $_POST["deleteFileUuid"]);
+               $stmt->bindParam(":ownerId", $_SESSION["uid"]);
+
+               $stmt->execute();
+
+               header("Location: " . $_SERVER['PHP_SELF'] . "?s=true"); //Prevent resubmission
+
           }
           catch (Exception $e)
           {
                echo "Exception occurred...";
 	          echo print_r($e);
+
+               header("Location: " . $_SERVER['PHP_SELF'] . "?s=false"); //Prevent resubmission
+
           }
 
      }
@@ -104,7 +137,7 @@
 <table class = "file-table" style="width:90%">
      <thead>
           <tr class = "file-table-header">
-               <th style = "width: 80%">Name</th>
+               <th style = "width: 70%">Name</th>
                <th>Date Modified</th>
                <th>Size</th>
                <th> </th>
@@ -117,14 +150,34 @@
 </table>
 </div>
 
-<div class = "rename-file hidden" id = "renameFileBox" >
+<div class = "modify-file rename-file hidden" id = "renameFileBox" >
+
+     <button onclick="closeModify(this)" class = "modify-file-close">
+          <a> Cancel </a>
+     </button>
 
      <form action = "index.php" method = "post">
 
-          <a id = "renameFileText" class = "rename-file-element"> Renaming file. </a>
-          <input class= "rename-file-element" type="text" placeholder="Enter new file name" name="newFilename" maxlength="50">
+          <a id = "renameFileText" class = "modify-file-element"> Renaming file. </a>
+          <input class= "modify-file-element" type="text" placeholder="Enter new file name" name="newFilename" maxlength="50">
           <input id = "editFileUuidHidden" type = "hidden" name = "editFileUuid">
-          <input class = "rename-file-element" type="submit" value="Edit">
+          <input class = "modify-file-element" type="submit" value="Edit">
+
+     </form>
+
+</div>
+
+<div class = "modify-file delete-file hidden" id = "deleteFileBox" >
+
+     <button onclick="closeModify(this)" class = "modify-file-close">
+          <a> Cancel </a>
+     </button>
+
+     <form action = "index.php" method = "post">
+
+          <a id = "deleteFileText" class = "modify-file-element"> Delete file? </a>
+          <input id = "deleteFileUuidHidden" type = "hidden" name = "deleteFileUuid">
+          <input class = "modify-file-element" type="submit" value="Delete">
 
      </form>
 
