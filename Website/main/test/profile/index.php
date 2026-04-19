@@ -3,7 +3,7 @@ session_start();
 require_once '../init.php';
 
 $message = '';
-$authenticated = false;
+$authenticated = $_SESSION['authenticated'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['re_password'])) {
     $dbh = new Dbh();
@@ -83,7 +83,9 @@ if (!in_array($col, $allowed)) {
     </form>
 </div>
 
-<?php else: ?>
+<?php
+$_SESSION['authenticated'] = true;
+else: ?>
 
 <div style="max-width: 480px; margin: 48px auto; padding: 0 24px; font-family: Roboto, sans-serif;">
 

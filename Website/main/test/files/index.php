@@ -3,6 +3,8 @@
      session_start();
      include_once '../../../../init.php';
 
+     $_SESSION['authenticated'] = false;     
+
      $bg_color = $_SESSION['bg_color'] ?? 'white';
      $text_color = $_SESSION['text_color'] ?? 'black';
 
@@ -118,6 +120,7 @@
             background-color: <?php echo htmlspecialchars($bg_color); ?>; 
             color: <?php echo htmlspecialchars($text_color); ?>;
             display:flex; align-items:center; justify-content:center;">
+            C
 </div>
                </div>
 
