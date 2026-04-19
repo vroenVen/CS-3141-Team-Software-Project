@@ -7,6 +7,9 @@
 
     session_start();
 
+    $bg_color = $_SESSION['bg_color'] ?? 'white';
+    $text_color = $_SESSION['text_color'] ?? 'black';
+
     $object = new Dbh;
     $conn = $object->connect();
 

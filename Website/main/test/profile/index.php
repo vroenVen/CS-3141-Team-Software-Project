@@ -99,36 +99,56 @@ if (!in_array($col, $allowed)) {
     </form>
     <?php endforeach; ?>
 
-    <form action="" method="post">
+
+
+<?php
+$allowed_colors = ['red', 'blue', 'green', 'yellow', 'black', 'white'];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['sub'])) {
+    if (in_array($_POST['profile-background'], $allowed_colors)) {
+        $_SESSION['bg_color'] = $_POST['profile-background'];
+    }
+    if (in_array($_POST['profile-text'], $allowed_colors)) {
+        $_SESSION['text_color'] = $_POST['profile-text'];
+    }
+}
+
+$bg_color = $_SESSION['bg_color'] ?? 'white';
+$text_color = $_SESSION['text_color'] ?? 'black';
+?>
+
+<form action="" method="post">
     <label for="profile-background">Choose a background color:</label>
     <select name="profile-background" id="profile-background">
-        <option value="red">Red</option>
-        <option value="blue">Blue</option>
-        <option value="green">Green</option>
-        <option value="yellow">Yellow</option>
-        <option value="black">Black</option>
-        <option value="white">White</option>
+        <option value="red" <?php echo ($bg_color === 'red') ? 'selected' : ''; ?>>Red</option>
+        <option value="blue" <?php echo ($bg_color === 'blue') ? 'selected' : ''; ?>>Blue</option>
+        <option value="green" <?php echo ($bg_color === 'green') ? 'selected' : ''; ?>>Green</option>
+        <option value="yellow" <?php echo ($bg_color === 'yellow') ? 'selected' : ''; ?>>Yellow</option>
+        <option value="black" <?php echo ($bg_color === 'black') ? 'selected' : ''; ?>>Black</option>
+        <option value="white" <?php echo ($bg_color === 'white') ? 'selected' : ''; ?>>White</option>
     </select>
 
-    <br/>
-    <br/>
-    
+    <br/><br/>
+
     <label for="profile-text">Choose a text color:</label>
     <select name="profile-text" id="profile-text">
-        <option value="red">Red</option>
-        <option value="blue">Blue</option>
-        <option value="green">Green</option>
-        <option value="yellow">Yellow</option>
-        <option value="black">Black</option>
-        <option value="white">White</option>
+        <option value="red" <?php echo ($text_color === 'red') ? 'selected' : ''; ?>>Red</option>
+        <option value="blue" <?php echo ($text_color === 'blue') ? 'selected' : ''; ?>>Blue</option>
+        <option value="green" <?php echo ($text_color === 'green') ? 'selected' : ''; ?>>Green</option>
+        <option value="yellow" <?php echo ($text_color === 'yellow') ? 'selected' : ''; ?>>Yellow</option>
+        <option value="black" <?php echo ($text_color === 'black') ? 'selected' : ''; ?>>Black</option>
+        <option value="white" <?php echo ($text_color === 'white') ? 'selected' : ''; ?>>White</option>
     </select>
 
-    <br/>
-    <br/>
+    <br/><br/>
 
     <button type="submit" name="sub">Apply Profile Changes</button>
+</form>
 
-    </form>
+
+
+
+
 
 </div>
 
