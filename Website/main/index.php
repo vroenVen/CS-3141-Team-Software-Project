@@ -28,15 +28,19 @@
 <div id="new">
      <ul class="save-bar">
           <li id="save" onclick="handleClick(this)" ><a href="#">Save</a></li>
+          <li><a onclick="updateMarkdown()" href="#new">Veiw Markdown</a></li>
      </ul>
-  <textarea id="more-info" class="hidden-content"></textarea>
+     <div id='fileContent'>
+          <textarea id="fileText" class="hidden-content"></textarea>
+          <div id=markdownOutput style.display="none">
+     </div>
 </div>
 
 </body>
 </html>
 
-<script>
-
+<script type="module">
+import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
 let activeClick = null;
 
 function handleClick(element) {
@@ -69,4 +73,17 @@ function saveContent() {
 
 document.getElementById('save').addEventListener('click', saveContent);
 
+window.updateMarkdown = function(){
+     const output = document.getElementById('markdownOutput');
+     const textarea = document.getElementById('fileText');
+
+     if (output.style.display == 'none') {
+          output.innerHTML = marked.parse(textarea.value);
+          output.style.display = 'block';
+          textarea.style.display = 'none';
+     } else {
+          output.style.display = 'none';
+          textarea.style.display = 'block';
+     }
+}
 </script>
