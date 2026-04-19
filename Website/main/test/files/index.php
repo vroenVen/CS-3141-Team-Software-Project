@@ -218,7 +218,12 @@ xmlhttp.onreadystatechange = function() {
      document.getElementById("file-table-body").innerHTML = this.responseText;
      }
 };
-xmlhttp.open("GET", "../getFiles.php", true);
+// append folder if not null
+let $_JSGET = <?php echo json_encode($_GET); ?>;
+let url = "../getFiles.php";
+if ($_JSGET["folder"])
+  url = url + "/?folder=" + $_JSGET["folder"];
+xmlhttp.open("GET", url, true);
 xmlhttp.send();
 
 

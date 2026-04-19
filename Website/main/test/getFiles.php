@@ -14,20 +14,43 @@
         try
         {
 
-        $stmt = $conn->prepare(
-            "SELECT f.id, f.uuid, f.filename, f.lastaccess, LENGTH(f.text) as file_size_bytes, u.username AS owner_name 
-            FROM Files f 
-            INNER JOIN Users u ON u.id = f.owner
-            WHERE f.owner = :owner
+		$folder = $_GET["folder"];
+		if (is_null($folder))
+		  $stmt = $conn->prepare(
+			  "SELECT f.id, f.uuid, f.filename, f.lastaccess, LENGTH(f.text) as file_size_bytes, u.username AS owner_name 
+			  FROM Files f 
+			  INNER JOIN Users u ON u.id = f.owner
+			  WHERE f.owner = :owner
+			  AND f.folder IS NULL
 
-            UNION
+			  UNION
 
-            SELECT f.id, f.uuid, f.filename, f.lastaccess, LENGTH(f.text) as file_size_bytes, u.username AS owner_name 
-            FROM Files f
-            INNER JOIN Users u ON u.id = f.owner
-            INNER JOIN SharedFiles sf ON sf.file_id = f.id
-            WHERE sf.shared_with = :owner2"
-        );
+			  SELECT f.id, f.uuid, f.filename, f.lastaccess, LENGTH(f.text) as file_size_bytes, u.username AS owner_name 
+			  FROM Files f
+			  INNER JOIN Users u ON u.id = f.owner
+			  INNER JOIN SharedFiles sf ON sf.file_id = f.id
+			  WHERE sf.shared_with = :owner2"
+		  );
+		else
+		{
+		  $stmt = $conn->prepare(
+			  "SELECT f.id, f.uuid, f.filename, f.lastaccess, LENGTH(f.text) as file_size_bytes, u.username AS owner_name 
+			  FROM Files f 
+			  INNER JOIN Users u ON u.id = f.owner
+			  WHERE f.owner = :owner
+			  AND f.folder = :folder
+
+			  UNION
+
+			  SELECT f.id, f.uuid, f.filename, f.lastaccess, LENGTH(f.text) as file_size_bytes, u.username AS owner_name 
+			  FROM Files f
+			  INNER JOIN Users u ON u.id = f.owner
+			  INNER JOIN SharedFiles sf ON sf.file_id = f.id
+			  WHERE sf.shared_with = :owner2"
+		  );
+		  $stmt->bindParam("folder", $folder);
+		}
+
 	
 	    $stmt->bindParam(":owner", $_SESSION["uid"]);
 	    $stmt->bindParam(":owner2", $_SESSION["uid"]);
