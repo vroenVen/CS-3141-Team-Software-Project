@@ -89,13 +89,15 @@
 
 <div id="new">
      <ul id="saveElement" onclick="saveClicked(this)" class="save-bar">
-          <li onclick="handleClick(this)" ><a>Save</a></li>
+          <li><a>Save</a></li>
      </ul>
+      <li><a onclick="updateMarkdown()" class="save-bar" href="#new">View Markdown</a></li>
 
 </div>
 <textarea id="more-info"></textarea>
-
 </div>
+
+<div id=markdownOutput style.display="none">
 
 <div class = "modify-file rename-file hidden" id = "renameFileBox" >
 
@@ -117,10 +119,25 @@
 </html>
 
 
-<script>
 
-     let activeClick = document.getElementById("newFileButton"); 
-     activeClick.classList.toggle("active");
+<script type="module">
+
+import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
+
+window.updateMarkdown = function(){
+     const output = document.getElementById('markdownOutput');
+     const textarea = document.getElementById('more-info');
+
+     if (output.style.display == 'none') {
+          output.innerHTML = marked.parse(textarea.value);
+          output.style.display = 'block';
+          textarea.style.display = 'none';
+     } else {
+          output.style.display = 'none';
+          textarea.style.display = 'block';
+     }
+}
+
 
 </script>
 
@@ -129,6 +146,8 @@
 
 <script>
 
+let activeClick = document.getElementById("newFileButton"); 
+activeClick.classList.toggle("active");
 
 function saveClicked(element) {
 

@@ -7,6 +7,20 @@ let openDropdown = null;
 let clickListener = null;
 let newFile = false;
 
+function handleClick(element) {
+   element.classList.toggle("active");
+
+   if(activeClick && activeClick != element){
+        activeClick.classList.toggle("active");
+   }
+   if(activeClick == element){
+        activeClick = null;
+   } else{
+        activeClick = element;
+   }
+
+}
+
 function fileItemClicked(element){
 
      if(activeFile == element){
