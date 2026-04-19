@@ -66,6 +66,27 @@
 
      }
 
+     if($_POST["newFolder"] != NULL && $_SESSION["uid"] != NULL){
+		try
+		{
+			$object = new Dbh;
+			$conn = $object->connect();
+			$conn->beginTransaction();
+			$statement = $conn->prepare("INSERT into Folders (owner, foldername, lastaccess) "
+			  . "values (:owner, :name, NOW())");
+			$statement->bindParam(":owner", $_SESSION["uid"]);
+			$statement->bindParam(":name", $_POST["newFolder"]);
+			$statement->execute();
+			$conn->commit();
+		}
+		catch (PDOException $e) 
+		{
+			$conn->rollBack();
+			print "Error!" . $e->getMessage();
+			die();
+		}
+	 }
+
 ?>
 
 <!DOCTYPE html>
@@ -107,6 +128,12 @@
 
                <a> Files </a>
           </li>
+          <li id = "folderButton" class = "flex-button" onclick="newFolderClicked(this)" >
+               <svg style = "margin-right: 8px" xmlns="http://www.w3.org/2000/svg" width="16" height="14" viewBox="0 0 16 14"><path d="M302 451h-2.764l-.447-.895A2 2 0 0 0 297 449h-4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-5a2 2 0 0 0-2-2m0 7h-9v-7h4l1 2h4zm-3 3h-9v-7a1 1 0 0 0-2 0v7a1.9 1.9 0 0 0 .09.59 2.02 2.02 0 0 0 1.32 1.32 1.9 1.9 0 0 0 .59.09h9a1 1 0 0 0 0-2" transform="translate(-288 -449)" style="fill-rule:evenodd"/></svg>
+
+               <a> New Folder </a>
+          </li>
+
      </ul>
      <ul class="flex-right">
 
@@ -192,6 +219,22 @@
           <a id = "deleteFileText" class = "modify-file-element"> Delete file? </a>
           <input id = "deleteFileUuidHidden" type = "hidden" name = "deleteFileUuid">
           <input class = "modify-file-element" type="submit" value="Delete">
+
+     </form>
+
+</div>
+
+<div class = "modify-file add-folder hidden" id = "addFolderBox" >
+
+     <button onclick="closeModify(this)" class = "modify-file-close">
+          <a> Cancel </a>
+     </button>
+
+     <form action = "index.php" method = "post">
+
+          <a id = "addFolderText" class = "modify-file-element"> Folder name? </a>
+          <input class = "modify-file-element" type="text" placeholder="Enter new folder name" name="newFolder" maxlength="50">
+          <input class = "modify-file-element" type="submit" value="Create">
 
      </form>
 

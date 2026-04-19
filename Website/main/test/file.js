@@ -80,6 +80,10 @@ function openFileClicked(element){
 
 }
 
+function newFolderClicked(element){
+     document.getElementById("addFolderBox").classList.toggle("hidden");
+}
+
 function shareFile(btn, fileUuid) {
      const input = btn.previousElementSibling;
      const msg = btn.nextElementSibling;
